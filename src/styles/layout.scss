@@ -1,0 +1,122 @@
+.header {
+    height: 126px;
+    background-color: $primaryColor;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nav-container {
+        max-width: 1280px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: flex-end;
+            border-bottom: 2px solid white;
+            // width: 90px;
+            justify-content: center;
+            cursor: pointer;
+
+            .search-input-wrapper {
+                position: relative;
+
+                .search-icon {
+                    position: absolute;
+                    z-index: 100;
+                    top: 10px;
+                    right: 50px;
+                    
+                }
+
+                .search-text {
+                    
+                    border: none;
+                    height: 45px;
+                    background: #ffffff66;
+                    color: white;
+                    outline: none;
+                    padding: 0 15px;
+                    font-size: 15px;
+                    visibility: hidden;
+                    width: 90px;
+                    &.hide{
+                        visibility:visible;
+                        width: 300px;
+                    }
+
+                    &::placeholder {
+                        color: white;
+                        opacity: 1;
+                    }
+
+                    &:-ms-input-placeholder {
+                        color: white;
+                    }
+
+                    &::-ms-input-placeholder {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.footer{
+    background-color: $primaryColor;
+    height: 240px;
+}
+.content-wrapper {
+    max-width: 1280px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 100px;
+}
+
+.loader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 126px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    background: white;
+}
+
+
+.snack-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    background-color: #388E3C;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-transform: uppercase;
+    span{
+        padding-left: 5px;
+    }
+    &.green{
+        background-color: #388E3C;
+    }
+    &.red{
+        background-color: #D32F2F;
+    }
+}
