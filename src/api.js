@@ -5,7 +5,6 @@ export const fetchArticles = async (query) => {
       .catch((err) => {
         console.log("Err: ", err);
       });
-      console.log(response.data,`https://content.guardianapis.com/search?api-key=test&${query}`)
     return response.data.response.results;
   };
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import ArticleCard from '../../components/article-card';
 import { fetchArticles } from '../../api';
-import TopStories from '../../components/top-stories';
 import { groupedELements } from '../../utils';
 import Select from 'react-select'
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,23 +16,17 @@ const options = [
 ]
 
 const HomePage = () => {
-    const [topStories, setTopStories] = useState([]);
     const [articles, setArticles] = useState([]);
-    const [orderBy, setOrderBy] = useState('newest')
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState();
 
 
     useEffect(() => {
-        const storyQuery = `page-size=8&setion=news&show-fields=thumbnail,trailText&order-by=${orderBy}`;
-        const query = `page-size=15&setion=sport|culture|lifeandstyle&show-fields=thumbnail,trailText&order-by=${orderBy}`;
+        const query = `page-size=15&setion=sport|culture|lifeandstyle&show-fields=thumbnail,trailText&order-by=newest`;
         setLoading(true);
-
-        Promise.all([fetchArticles(storyQuery), fetchArticles(query)])
-            .then(function (results) {
-                const topStories = results[0];
-                const categories = results[1];
-                setTopStories(topStories);
+        
+        fetchArticles(query).then(function (results) {
+                const categories = results;
                 setArticles(groupedELements(categories));
                 setLoading(false);
             })
@@ -41,7 +34,7 @@ const HomePage = () => {
                 console.log(error);
                 setLoading(false);
             })
-    }, [orderBy]);
+    }, []);
 
     return (
         <div className="home-container">
@@ -109,16 +102,13 @@ const HomePage = () => {
                 {
                     Object.keys(articles).map((key, index) => {
                         return (
-                            <>
-                                {/* <div key={index} className='sub-heading'>
-                                    <h3>{key}</h3>
-                                </div> */}
-                                <div className="article-row">
+                            
+                                <div className="article-row" key={index}>
                                     {
                                         articles[key] &&
-                                        articles[key].map(article => {
+                                        articles[key].map((article, articleIndex) => {
                                             return (
-                                                <div className="article-column">
+                                                <div className="article-column" key={articleIndex}>
                                                     <ArticleCard
                                                         key={article.id}
                                                         id={article.id}
@@ -132,7 +122,6 @@ const HomePage = () => {
                                         })
                                     }
                                 </div>
-                            </>
                         );
                     })
                 }

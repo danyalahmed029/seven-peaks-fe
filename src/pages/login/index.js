@@ -1,7 +1,9 @@
-import { articles } from '../../data/bookmarks';
-import ArticleCard from '../../components/article-card';
-
 const LoginPage = () => {
+    const onLoginClick=(e)=>{
+        e.preventDefault();
+        localStorage.setItem("user",JSON.stringify({name:"test",email:"test@testing.com"}));
+        window.location = "/";
+    }
     return (
         <div className="login-container">
             <form>
@@ -13,7 +15,7 @@ const LoginPage = () => {
                 <label for="password">Password</label>
                 <input type="password" placeholder="Enter your Password" id="password" />
 
-                <button>Log In</button>
+                <button onClick={onLoginClick}>Log In</button>
                 <div className='account-span'>
                     <span>
                         Don't have an account?

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useNavigate } from "react-router-dom";
 import { ReactComponent as LogoWhite } from '../../assets/svg/logo-white.svg';
 import parse from 'html-react-parser';
 
@@ -14,13 +13,9 @@ const ArticleCard = ({
     id,
     date,
 }) => {
-    const navigate = useNavigate();
 
     return (
         <div
-            onClick={() => {
-                navigate(`/article?id=${id}`)
-            }}
             className={`article-card ${cardClass ? cardClass : ''}`}
         >
             {imageUrl ?
@@ -58,5 +53,6 @@ ArticleCard.propTypes = {
     cardClass: PropTypes.string,
     wrapperClass: PropTypes.string,
     description: PropTypes.string,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    date:PropTypes.string,
 }

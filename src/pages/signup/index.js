@@ -1,6 +1,3 @@
-import { articles } from '../../data/bookmarks';
-import ArticleCard from '../../components/article-card';
-
 const SignupPage = () => {
     return (
         <div className="login-container">
