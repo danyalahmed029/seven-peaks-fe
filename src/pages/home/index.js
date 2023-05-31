@@ -3,17 +3,25 @@ import ArticleCard from '../../components/article-card';
 import { fetchArticles } from '../../api';
 import TopStories from '../../components/top-stories';
 import { groupedELements } from '../../utils';
-import { Link } from "react-router-dom";
+import Select from 'react-select'
+import "react-datepicker/dist/react-datepicker.css";
 
-import { ReactComponent as BookmarkIcon } from '../../assets/svg/bookmark-icon.svg';
+import DatePicker from "react-datepicker";
+
 import Loader from '../../components/loader';
 
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+]
 
 const HomePage = () => {
     const [topStories, setTopStories] = useState([]);
     const [articles, setArticles] = useState([]);
     const [orderBy, setOrderBy] = useState('newest')
     const [loading, setLoading] = useState(true);
+    const [startDate, setStartDate] = useState();
 
 
     useEffect(() => {
@@ -38,22 +46,63 @@ const HomePage = () => {
     return (
         <div className="home-container">
             <Loader loading={loading} />
+
             <div className="heading-wrapper">
-                <h2>Top Stories</h2>
-                <div className="sidebar-actions">
-                    <Link to="/bookmarks" className="btn-bookmarks">
-                        <BookmarkIcon />
-                        View Bookmark
-                    </Link>
-                    <select name="filters" onChange={(e) => setOrderBy(e.target.value)} className='filters'>
-                        <option value="newest">Newest first</option>
-                        <option value="oldest">Oldest first</option>
-                    </select>
-                </div>
+                <h2>News</h2>
+                <p>Read the news online.</p>
             </div>
 
-            <div className="top-stories-container">
-                <TopStories topStories={topStories} />
+
+
+            <div className="article-search-container">
+
+                <div className="search-row">
+                    <div className="search-column">
+                        <div className="search-body">
+
+                        <label>Search article</label>
+                        <input placeholder='Search news' className='date-picker'/>
+                        </div>
+                    </div>
+                    <div className="search-column">
+                        <div className="search-body">
+                            <label>Filter by Date</label>
+                            <DatePicker
+                            className='date-picker'
+                            placeholderText='Select by date'
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                            />
+                        </div>
+                    </div>
+                    <div className="search-column">
+                        <div className="search-body">
+
+                            <label>Filter by Category</label>
+                            <Select
+                                isMulti
+                                options={options}
+                                placeholder="Select by category"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="search-column">
+                        <div className="search-body">
+
+                            <label>Filter by Source</label>
+                            <Select
+                                isMulti
+                                options={options}
+                                placeholder="Select by source"
+                            />
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <p className='total-news'>Total 200 news found</p>
             </div>
 
             <div className="articles-container">
@@ -61,9 +110,9 @@ const HomePage = () => {
                     Object.keys(articles).map((key, index) => {
                         return (
                             <>
-                                <div key={index} className='sub-heading'>
+                                {/* <div key={index} className='sub-heading'>
                                     <h3>{key}</h3>
-                                </div>
+                                </div> */}
                                 <div className="article-row">
                                     {
                                         articles[key] &&
@@ -75,6 +124,8 @@ const HomePage = () => {
                                                         id={article.id}
                                                         title={article.webTitle}
                                                         imageUrl={article.fields?.thumbnail}
+                                                        description={article.fields?.trailText}
+                                                        date={article.webPublicationDate}
                                                         borderClass="pink" />
                                                 </div>
                                             )

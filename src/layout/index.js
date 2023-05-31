@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { ReactComponent as LogoWhite } from '../assets/svg/logo-white.svg';
-import { ReactComponent as SearchIcon } from '../assets/svg/search-icon.svg';
+import { ReactComponent as DropdownIcon } from '../assets/svg/dropdown-svgrepo-com.svg';
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -36,13 +35,27 @@ const Layout = () => {
         <div className='nav-container'>
           <div className='logo'>
             <Link to={'/'}>
-              <LogoWhite />
+              <h2>News</h2>
             </Link>
           </div>
-          <div className='search-container'>
-            {/* <div className="search">
-                            <SearchIcon />
-                        </div> */}
+          <div className='account-container'>
+            {/* <Link to={'/login'} className='login-button'>
+              Login
+            </Link>
+            <Link to={'/signup'} className='login-button'>
+              Signup
+            </Link> */}
+            <div className="dropdown">
+              <div className="dropbtn">John Doe <DropdownIcon className="dropdown-icon"/></div>
+              <div className="dropdown-content">
+                <a className="#">Profile</a>
+                <a className="#">Preferences</a>
+                <a className="#">Sign out</a>
+              </div>
+            </div>
+          </div>
+          {/* <div className='search-container'>
+
             <div className='search-input-wrapper'>
               <input
                 type='text'
@@ -60,14 +73,15 @@ const Layout = () => {
                 <SearchIcon />
               </div>
             </div>
-          </div>
+          </div> */}
+
         </div>
       </header>
       <div className='content-wrapper'>
 
         <Outlet />
       </div>
-      <footer className='footer'></footer>
+      {/* <footer className='footer'></footer> */}
     </div>
   );
 };

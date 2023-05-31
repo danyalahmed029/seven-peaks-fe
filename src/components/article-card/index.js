@@ -11,7 +11,8 @@ const ArticleCard = ({
     cardClass,
     wrapperClass,
     description,
-    id
+    id,
+    date,
 }) => {
     const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const ArticleCard = ({
             onClick={() => {
                 navigate(`/article?id=${id}`)
             }}
-            className={`article-card ${cardClass ? cardClass : ''} border-bottom-${borderClass ? borderClass : "pink"}`}
+            className={`article-card ${cardClass ? cardClass : ''}`}
         >
             {imageUrl ?
                 <img className='article-image' src={imageUrl} alt={altText || "..."} /> :
@@ -30,11 +31,17 @@ const ArticleCard = ({
 
             }
             <div className={`article-detail-wrapper ${wrapperClass ? wrapperClass : ''}`}>
+               
                 <div className="article-title">
+                <div className='article-category'>The Gaurdian | The Gaurdian</div>
                     <h2>
                         {title}
                     </h2>
                     {description && <p>{parse(description)}</p>}
+                </div>
+                <div className='article-author'>
+                    <p>Martin Ferrur</p>
+                    <p>{date}</p>
                 </div>
             </div>
         </div>
